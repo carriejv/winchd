@@ -4,7 +4,7 @@ use std::thread;
 use std::time::Duration;
 use window_info::x11_window_info;
 
-const PROCESS_POLLING_INTERVAL_MS: u64 = 1000;
+const PROCESS_POLLING_INTERVAL_MS: u64 = 10000;
 
 
 fn main() {
