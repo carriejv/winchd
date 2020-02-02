@@ -12,7 +12,7 @@ const MAX_XPROP_BYTE_SIZE: u32 = 64;
 // Size in bytes of x window ids
 const WINDOW_ID_SIZE: usize = size_of::<xproto::WINDOW>();
 
-pub fn get_focused_window_info() -> Result<super::FocusedWindowInfo, Box<dyn Error>> {
+pub fn get_active_window_info() -> Result<super::ActiveWindowInfo, Box<dyn Error>> {
     // Initialize an XCB Connection and get focused window
     let (xcb_conn, _screen_id) = XCBConnection::connect(None)?;
     // Get x root window
@@ -29,7 +29,7 @@ pub fn get_focused_window_info() -> Result<super::FocusedWindowInfo, Box<dyn Err
     // Input focus probably makes more sense for this application, but apps don't request it consistently -- and some never do
     // let focused_window_id = xproto::get_input_focus(&xcb_conn)?.reply()?.focus;
 
-    return Ok(super::FocusedWindowInfo {
+    return Ok(super::ActiveWindowInfo {
         class: get_xprop_strings(&xcb_conn, active_window_id, b"WM_CLASS")?,
         name: get_xprop_strings(&xcb_conn, active_window_id, b"WM_NAME")?,
     });
